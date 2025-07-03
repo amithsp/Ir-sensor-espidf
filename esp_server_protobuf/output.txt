@@ -1,0 +1,8 @@
+The output received by esp32 is :
+
+app_main()
+I (16816) PROTO: Received - ID: 1, Speed: 0.50, Steering: 0.00, Enable: true 
+I (18046) PROTO: Received - ID: 2, Speed: 1.00, Steering: 0.25, Enable: true 
+I (19276) PROTO: Received - ID: 3, Speed: 0.00, Steering: -0.50, Enable: false 
+I (20506) PROTO: Received - ID: 4, Speed: -0.80, Steering: 0.10, Enable: true 
+I (25716) wifi:<ba-add>idx:1 (ifx:0, bc:22:28:be:11:e3), tid:6, ssn:0, winSize:64
