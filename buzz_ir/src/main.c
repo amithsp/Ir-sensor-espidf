@@ -14,8 +14,8 @@
 #define LEDC_DUTY_RES           LEDC_TIMER_13_BIT
 
 #define MAX_DETECTIONS          10
-#define CONTINUOUS_BEEP_FREQ    2000    // 2kHz for different tone
-#define CONTINUOUS_BEEP_DURATION 5000   // 5 seconds continuous beep
+#define CONTINUOUS_BEEP_FREQ    2000   
+#define CONTINUOUS_BEEP_DURATION 5000  
 
 static const char *TAG = "OBSTACLE_DETECTION";
 
