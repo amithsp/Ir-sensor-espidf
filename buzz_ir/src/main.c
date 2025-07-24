@@ -13,63 +13,50 @@
 #define LEDC_CHANNEL            LEDC_CHANNEL_0
 #define LEDC_DUTY_RES           LEDC_TIMER_13_BIT
 
-// Detection threshold and continuous beep settings
 #define MAX_DETECTIONS          10
 #define CONTINUOUS_BEEP_FREQ    2000    // 2kHz for different tone
 #define CONTINUOUS_BEEP_DURATION 5000   // 5 seconds continuous beep
 
 static const char *TAG = "OBSTACLE_DETECTION";
 
-// Global counter for obstacle detections
 static int detection_count = 0;
 static bool continuous_mode = false;
 
-// Function to play a beep with specific frequency and duration
 void play_beep(uint32_t frequency, uint32_t duration_ms)
 {
-    // Set frequency
     ledc_set_freq(LEDC_MODE, LEDC_TIMER, frequency);
     
-    // Turn on buzzer (50% duty cycle)
     ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, 4096);
     ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
     
-    // Wait for duration
     vTaskDelay(pdMS_TO_TICKS(duration_ms));
-    
-    // Turn off buzzer
+
     ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, 0);
     ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
 }
 
-// Function to start continuous beep
 void start_continuous_beep(uint32_t frequency)
 {
-    // Set frequency
     ledc_set_freq(LEDC_MODE, LEDC_TIMER, frequency);
     
-    // Turn on buzzer (50% duty cycle)
     ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, 4096);
     ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
 }
 
-// Function to stop continuous beep
 void stop_continuous_beep(void)
 {
     ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, 0);
     ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
 }
 
-// Function to play obstacle alert pattern
 void play_obstacle_alert(void)
 {
     for (int i = 0; i < 3; i++) {
-        play_beep(1000, 200);  // 1kHz beep for 200ms
-        vTaskDelay(pdMS_TO_TICKS(100)); // 100ms silence
+        play_beep(1000, 200); 
+        vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
 
-// Function to play continuous beep for specified duration
 void play_continuous_alert(void)
 {
     ESP_LOGI(TAG, "Playing continuous beep for %d seconds...", CONTINUOUS_BEEP_DURATION/1000);
@@ -79,8 +66,6 @@ void play_continuous_alert(void)
     stop_continuous_beep();
     
     ESP_LOGI(TAG, "Continuous beep finished. Resetting detection count.");
-    
-    // Reset counter and mode after continuous beep
     detection_count = 0;
     continuous_mode = false;
 }
